@@ -13,7 +13,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  await browser.close();
+  //await browser.close();
 });
 
 test('the header has the correct text', async () => {
@@ -29,7 +29,7 @@ test('clicking login starts oauth flow', async () => {
   expect(url).toMatch(/accounts\.google\.com/);
 });
 
-test('When signed in, shows logout button', async () => {
+test.only('When signed in, shows logout button', async () => {
   //eyJwYXNzcG9ydCI6eyJ1c2VyIjoiNWI1YmY0MTlhODQ2YjU2OTc0MjU0MzIzIn19
   //0jJIV71PZUnYiQ-jUqOTi_Uyx5w
   const id = '5b5bf419a846b56974254323';
@@ -50,6 +50,7 @@ test('When signed in, shows logout button', async () => {
 
   const keygrip = new Keygrip([keys.cookieKey]);
   const sig = keygrip.sign('session=' + sessionString); // they deciede having session= for no reason
-
-  console.log(sessionString, sig);
+  await page.setCookie({ name: 'session', value: sessionString });
+  await page.setCookie({ name: 'session.sig', value: sig });
+  await page.goto('localhost:3000');
 });
