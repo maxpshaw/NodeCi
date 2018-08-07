@@ -34,22 +34,6 @@ test('When signed in, shows logout button', async () => {
   //0jJIV71PZUnYiQ-jUqOTi_Uyx5w
   const id = '5b5bf419a846b56974254323';
 
-  const Buffer = require('safe-buffer').Buffer;
-  const sessionObject = {
-    passport: {
-      user: id
-    }
-  };
-
-  const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString(
-    'base64'
-  );
-
-  const Keygrip = require('keygrip');
-  const keys = require('../config/keys');
-
-  const keygrip = new Keygrip([keys.cookieKey]);
-  const sig = keygrip.sign('session=' + sessionString); // they deciede having session= for no reason
   await page.setCookie({ name: 'session', value: sessionString });
   await page.setCookie({ name: 'session.sig', value: sig });
   await page.goto('localhost:3000');
