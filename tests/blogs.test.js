@@ -10,3 +10,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await page.close();
 });
+
+test('when logged in, can see blog creation form', async () => {
+  await page.login();
+});
