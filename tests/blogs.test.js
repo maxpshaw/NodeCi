@@ -35,7 +35,16 @@ describe('when logged in', async () => {
       expect(text).toEqual('Please confirm your entries');
     });
 
-    test('submitting then saving adds blog to index page', async () => {});
+    test('submitting then saving adds blog to index page', async () => {
+      await page.click('button.green');
+      await page.waitFor('.card');
+
+      const title = await page.getContentsOf('.card-title');
+      const content = await page.getContentsOf('p');
+
+      expect(title).toEqual('My Title');
+      expect(content).toEqual('My Content');
+    });
   });
 
   describe('And using invalid inputs', async () => {
@@ -46,6 +55,7 @@ describe('when logged in', async () => {
     test('the form shows an error message', async () => {
       const titleError = await page.getContentsOf('.title .red-text');
       const contentError = await page.getContentsOf('.content .red-text');
+
       expect(titleError).toEqual('You must provide a value');
       expect(contentError).toEqual('You must provide a value');
     });
