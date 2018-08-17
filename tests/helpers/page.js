@@ -6,8 +6,8 @@ class CustomPage {
   static async build() {
     const browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox'],
-      executablePath: '/usr/bin/chromium'
+      args: ['--no-sandbox']
+      //executablePath: '/usr/bin/chromium'
     });
 
     const page = await browser.newPage();
