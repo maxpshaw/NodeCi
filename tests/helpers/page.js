@@ -5,7 +5,8 @@ const puppeteer = require('puppeteer');
 class CustomPage {
   static async build() {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
+      args: ['--no-sandbox'],
       executablePath: '/usr/bin/chromium'
     });
 
@@ -29,7 +30,7 @@ class CustomPage {
 
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
-    await this.page.goto('localhost:3000/blogs');
+    await this.page.goto('http://localhost:3000/blogs');
     await this.page.waitFor('a[href="/auth/logout"]');
   }
 
